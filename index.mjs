@@ -47,7 +47,7 @@ app.post("/income_update", cors(), async(req, res) => {
                     console.info(new Date().toISOString() + " Failed: " + r);
                     res.writeHead(500, {'Content-Type': 'text/html'});
                     res.end("Error in writing to Sheets");
-                    console.error("Response from Sheets after saving player income: " + r);
+                    console.error(new Date().toISOString() + " Response from Sheets after saving player income: " + r);
                 }
                 else {
                     console.info(new Date().toISOString() + "Processed successfully.");
@@ -77,18 +77,18 @@ async function loadGoogleSheet(id) {
     });
 
     await doc.loadInfo(); // loads document properties and worksheets
-    console.info(doc.title + " sheet loaded");
+    console.info(new Date().toISOString() + " " + doc.title + " sheet loaded");
 
     return doc;
 }
 
 const server = app.listen(8443, () => {
-    console.info("Server started");
+    console.info(new Date().toISOString() + " Server started");
 });
 
 // handle shutdowns gracefully
 process.on('SIGTERM', () => {
-    console.log('!!! Shutting Down !!!');
+    console.log(new Date().toISOString() + " !!! Shutting Down !!!");
     server.close(() => {
         process.exit(0);
     });
