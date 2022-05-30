@@ -44,25 +44,25 @@ app.post("/income_update", cors(), async(req, res) => {
             sheet.getCellByA1(cells.ideo_rate).value = resources.ideo.change;
             sheet.saveUpdatedCells().then(r => {
                 if(r) {
-                    console.info("Failed: " + r);
+                    console.info(new Date().toISOString() + " Failed: " + r);
                     res.writeHead(500, {'Content-Type': 'text/html'});
                     res.end("Error in writing to Sheets");
                     console.error("Response from Sheets after saving player income: " + r);
                 }
                 else {
-                    console.info("Processed successfully.");
+                    console.info(new Date().toISOString() + "Processed successfully.");
                     res.writeHead(200, {'Content-Type': 'text/html'});
                     res.end('received');
                 }
             })
                 .catch(e => {
-                    console.info("Error: " + e);
+                    console.info(new Date().toISOString() + " Error: " + e);
                     res.writeHead(500, {'Content-Type': 'text/html'});
                     res.end("Failure in talking to Google Sheets");
                 });
         }
         catch(err) {
-            console.error("Failed: " + err);
+            console.error(new Date().toISOString() + " Failed: " + err);
             res.writeHead(500, {'Content-Type': 'text/html'});
             res.end("Failure in processing request: " + err);
         }
